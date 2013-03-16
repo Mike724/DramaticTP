@@ -1,0 +1,8 @@
+name: DramaticTP
+main: com.mike724.dramatictp.DramaticTP
+author: Mike724
+version: ${version}
+commands:
+    dramatictp:
+        description: Manage DramaticTP
+        usage: /<command> help
