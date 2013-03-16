@@ -58,7 +58,6 @@ public class DramaticTP extends JavaPlugin {
         log.info("Enabled successfully");
     }
 
-    @SuppressWarnings("unused")
     public boolean isEnabledForPlayer(String p) {
         return players.contains(p);
     }
