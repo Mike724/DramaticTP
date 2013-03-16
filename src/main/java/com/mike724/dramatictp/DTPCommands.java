@@ -22,6 +22,7 @@ public class DTPCommands implements CommandExecutor {
             }
             boolean isPlayer = sender instanceof Player;
             String msgNotPlayer = ChatColor.RED+"Only players can do that!";
+            String permDenied   = ChatColor.RED+"You do not have permission to do that!";
             String permRoot = "DTPCommands.";
             String cmdRoot  = "/dramatictp";
             if(args[0].equalsIgnoreCase("help") && sender.hasPermission(permRoot+"help")) {
@@ -35,19 +36,55 @@ public class DTPCommands implements CommandExecutor {
                     sender.sendMessage(ChatColor.AQUA+"To disable Dramatic Teleport: ");
                     sender.sendMessage(ChatColor.YELLOW+cmdRoot+" off");
                 }
+                //For toggle, they should be able to enable and disable dramatic teleport
+                if(sender.hasPermission(permRoot+"on") && sender.hasPermission(permRoot+"off")) {
+                    sender.sendMessage(ChatColor.AQUA+"To toggle Dramatic Teleport: ");
+                    sender.sendMessage(ChatColor.YELLOW+cmdRoot+" toggle");
+                }
                 return true;
             } else if(args[0].equalsIgnoreCase("on")) {
                 if(!isPlayer) {
                     sender.sendMessage(msgNotPlayer);
                     return true;
                 }
-                sender.sendMessage((plugin.enableForPlayer(sender.getName())) ? ChatColor.GREEN+"Enabled!" : ChatColor.RED+"Already enabled!");
+                if(!sender.hasPermission(permRoot+"on")) {
+                    sender.sendMessage(permDenied);
+                    return true;
+                }
+                sender.sendMessage((plugin.enableForPlayer(sender.getName())) ?
+                        ChatColor.GREEN+"Enabled!" :
+                        ChatColor.RED+"Already enabled!");
+                return true;
             } else if(args[0].equalsIgnoreCase("off")) {
                 if(!isPlayer) {
                     sender.sendMessage(msgNotPlayer);
                     return true;
                 }
-                sender.sendMessage((plugin.disableForPlayer(sender.getName())) ? ChatColor.GREEN+"Disabled!" : ChatColor.RED+"Already disabled!");
+                if(!sender.hasPermission(permRoot+"off")) {
+                    sender.sendMessage(permDenied);
+                    return true;
+                }
+                sender.sendMessage((plugin.disableForPlayer(sender.getName())) ?
+                        ChatColor.GREEN+"Disabled!" :
+                        ChatColor.RED+"Already disabled!");
+                return true;
+            } else if(args[0].equalsIgnoreCase("toggle")) {
+                if(!isPlayer) {
+                    sender.sendMessage(msgNotPlayer);
+                    return true;
+                }
+                if(!(sender.hasPermission(permRoot+"on") && sender.hasPermission(permRoot+"off"))) {
+                    sender.sendMessage(permDenied);
+                    return true;
+                }
+                if(!plugin.isEnabledForPlayer(sender.getName())) {
+                    plugin.enableForPlayer(sender.getName());
+                    sender.sendMessage(ChatColor.GREEN+"Enabled!");
+                } else {
+                    plugin.disableForPlayer(sender.getName());
+                    sender.sendMessage(ChatColor.GREEN+"Disabled!");
+                }
+                return true;
             }
         }
         return false;
