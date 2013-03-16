@@ -1,4 +1,5 @@
 *.class
+.idea/*
 dependency-reduced-pom.xml
 
 # Package Files #

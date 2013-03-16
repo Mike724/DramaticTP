@@ -22,9 +22,13 @@ import org.mcstats.MetricsLite;
 
 import java.io.IOException;
 import java.lang.Override;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class DramaticTP extends JavaPlugin {
+
+    private Set<String> players = new HashSet<String>();
 
     @Override
     public void onDisable() {
@@ -50,7 +54,18 @@ public class DramaticTP extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.getCommand("dramatictp").setExecutor(new DTPCommands());
+        this.getCommand("dramatictp").setExecutor(new DTPCommands(this));
         log.info("Enabled successfully");
+    }
+
+    @SuppressWarnings("unused")
+    public boolean isEnabledForPlayer(String p) {
+        return players.contains(p);
+    }
+    public boolean enableForPlayer(String p) {
+        return players.add(p);
+    }
+    public boolean disableForPlayer(String p) {
+        return players.remove(p);
     }
 }

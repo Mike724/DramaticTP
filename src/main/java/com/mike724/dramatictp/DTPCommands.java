@@ -7,6 +7,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class DTPCommands implements CommandExecutor {
+
+    private DramaticTP plugin;
+
+    public DTPCommands(DramaticTP plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("dramatictp")) {
@@ -34,13 +41,13 @@ public class DTPCommands implements CommandExecutor {
                     sender.sendMessage(msgNotPlayer);
                     return true;
                 }
-                sender.sendMessage("TODO: Turn on for player");
+                sender.sendMessage((plugin.enableForPlayer(sender.getName())) ? ChatColor.GREEN+"Enabled!" : ChatColor.RED+"Already enabled!");
             } else if(args[0].equalsIgnoreCase("off")) {
                 if(!isPlayer) {
                     sender.sendMessage(msgNotPlayer);
                     return true;
                 }
-                sender.sendMessage("TODO: Turn off for player");
+                sender.sendMessage((plugin.disableForPlayer(sender.getName())) ? ChatColor.GREEN+"Disabled!" : ChatColor.RED+"Already disabled!");
             }
         }
         return false;
