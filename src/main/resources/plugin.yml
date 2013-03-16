@@ -5,4 +5,5 @@ version: ${version}
 commands:
     dramatictp:
         description: Manage DramaticTP
+        aliases: [dtp,dt]
         usage: /<command> help
