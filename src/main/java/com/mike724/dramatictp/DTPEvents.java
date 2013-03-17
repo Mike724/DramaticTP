@@ -30,11 +30,17 @@ public class DTPEvents implements Listener {
         locations[1] = event.getTo();
         for(Location loc : locations) {
             World world = loc.getWorld();
-            //Smoke in all directions
-            for(int i = 0; i <= 8; i++) {
-                world.playEffect(loc, Effect.SMOKE, i);
+            for(int times = 0; times < 2; times++) {
+                for(int height = 0; height < 3; height++) {
+                    Location newLoc = loc.clone();
+                    newLoc.setY(newLoc.getY()+height);
+                    //Smoke in all directions
+                    for(int i = 0; i <= 8; i++) {
+                        world.playEffect(newLoc, Effect.SMOKE, i);
+                    }
+                }
             }
-            world.playSound(loc, Sound.PORTAL_TRAVEL, 0.25f, 0.5f);
+            world.playSound(loc, Sound.PORTAL_TRAVEL, 0.50f, 1.2f);
         }
     }
 
