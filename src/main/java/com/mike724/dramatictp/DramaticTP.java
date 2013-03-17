@@ -55,6 +55,7 @@ public class DramaticTP extends JavaPlugin {
             e.printStackTrace();
         }
         this.getCommand("dramatictp").setExecutor(new DTPCommands(this));
+        this.getServer().getPluginManager().registerEvents(new DTPEvents(this), this);
         log.info("Enabled successfully");
     }
 
