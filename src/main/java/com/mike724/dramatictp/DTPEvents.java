@@ -16,11 +16,16 @@ public class DTPEvents implements Listener {
     private DramaticTP plugin;
 
     public DTPEvents(DramaticTP plugin) {
+
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
+        PlayerTeleportEvent.TeleportCause cause = event.getCause();
+        if(!(cause == PlayerTeleportEvent.TeleportCause.COMMAND || cause == PlayerTeleportEvent.TeleportCause.PLUGIN)) {
+            return;
+        }
         Player p = event.getPlayer();
         if(!plugin.isEnabledForPlayer(p.getName())) {
             return;
