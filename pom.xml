@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mike724.dramatictp</groupId>
 	<artifactId>DramaticTP</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>DramaticTP</name>
 	<url>http://www.mike724.com/</url>
 	<repositories>
